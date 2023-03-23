@@ -57,19 +57,20 @@ class _SpeechScreenState extends State<SpeechScreen> {
                   );
                 });
               }
-            } else {
-              setState(() {
-                isListening = false;
-              });
-              speechToText.stop();
-
-              messages.add(ChatMessage(text: text, type: ChatMessageType.user));
-              var msg = await ApiServices.sendMessage(text);
-
-              setState(() {
-                messages.add(ChatMessage(text: msg, type: ChatMessageType.bot));
-              });
             }
+          },
+          onTapUp: (details) async {
+            setState(() {
+              isListening = false;
+            });
+            speechToText.stop();
+
+            messages.add(ChatMessage(text: text, type: ChatMessageType.user));
+            var msg = await ApiServices.sendMessage(text);
+
+            setState(() {
+              messages.add(ChatMessage(text: msg, type: ChatMessageType.bot));
+            });
           },
           child: CircleAvatar(
             backgroundColor: bgColor,
